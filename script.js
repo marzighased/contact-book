@@ -14,8 +14,7 @@ document.querySelector('form').addEventListener('submit', function(e) {
     let newContact = document.createElement('li');
     newContact.textContent = name + '-' + phone + '-' + email;
 
-    document.querySelector('#contact-list').appendChild(newContact);
-    document.querySelector('form').reset();
+    
 
     let deleteBtn = document.createElement('button');
     deleteBtn.textContent = 'Delete';
@@ -25,6 +24,14 @@ document.querySelector('form').addEventListener('submit', function(e) {
     deleteBtn.style.border = 'none';
     deleteBtn.style.borderRadius = '8px';
     deleteBtn.style.cursor = 'pointer';
+
+    deleteBtn.addEventListener('click', function() {
+        newContact.remove();
+    });
+
+    newContact.appendChild(deleteBtn);
+    document.querySelector('#contact-list').appendChild(newContact);
+    document.querySelector('form').reset();
 
 
 
