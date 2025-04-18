@@ -17,4 +17,15 @@ document.querySelector('form').addEventListener('submit', function(e) {
     document.querySelector('#contact-list').appendChild(newContact);
     document.querySelector('form').reset();
 
+    let deleteBtn = document.createElement('button');
+    deleteBtn.textContent = 'Delete';
+    deleteBtn.style.marginLeft = '10px';
+    deleteBtn.style.backgroundColor = '#ff4d4d';
+    deleteBtn.style.color = 'white';
+    deleteBtn.style.border = 'none';
+    deleteBtn.style.borderRadius = '8px';
+    deleteBtn.style.cursor = 'pointer';
+
+
+
 });
