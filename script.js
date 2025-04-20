@@ -27,6 +27,10 @@ document.querySelector('form').addEventListener('submit', function(e) {
 
     deleteBtn.addEventListener('click', function() {
         newContact.remove();
+
+        let contacts = JSON.parse(localStorage.getItem('contacts')) || [];
+        contacts = contacts.filter(c => c.name !== name || c.phone !== phone || c.email !== email);
+        localStorage.setItem('contacts', JSON.stringify(contacts));
     });
 
     newContact.appendChild(deleteBtn);
