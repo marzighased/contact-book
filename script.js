@@ -14,27 +14,41 @@ document.querySelector('form').addEventListener('submit', function(e) {
     let newContact = document.createElement('li');
     newContact.textContent = name + '-' + phone + '-' + email;
 
+    window.addEventListener('DOMContentLoaded', function() {
+        let contacts = JSON.parse(localStorage.getItem('contacts')) || [];
+
+        contacts.forEach(function(contact) {
+            let li = document.createElement('li');
+            li.textContent = contact.name + '-' + contact.phone + '-' + contact.email;
+
+            let deleteBtn = document.createElement('button');
+            deleteBtn.textContent = 'Delete';
+            deleteBtn.style.marginLeft = '10px';
+            deleteBtn.style.backgroundColor = '#ff4d4d';
+            deleteBtn.style.color = 'white';
+            deleteBtn.style.border = 'none';
+            deleteBtn.style.borderRadius = '8px';
+            deleteBtn.style.cursor = 'pointer';
+
+            deleteBtn.addEventListener('click', function() {
+                li.remove();
+        
+                let contacts = JSON.parse(localStorage.getItem('contacts')) || [];
+                contacts = contacts.filter(c => c.name !== name || c.phone !== phone || c.email !== email);
+                localStorage.setItem('contacts', JSON.stringify(contacts));
+            });
+                
+            li.appendChild(deleteBtn);
+            document.querySelector('#contact-list').appendChild(li);
+        });
+    }
+
+    
     
 
-    let deleteBtn = document.createElement('button');
-    deleteBtn.textContent = 'Delete';
-    deleteBtn.style.marginLeft = '10px';
-    deleteBtn.style.backgroundColor = '#ff4d4d';
-    deleteBtn.style.color = 'white';
-    deleteBtn.style.border = 'none';
-    deleteBtn.style.borderRadius = '8px';
-    deleteBtn.style.cursor = 'pointer';
-
-    deleteBtn.addEventListener('click', function() {
-        newContact.remove();
-
-        let contacts = JSON.parse(localStorage.getItem('contacts')) || [];
-        contacts = contacts.filter(c => c.name !== name || c.phone !== phone || c.email !== email);
-        localStorage.setItem('contacts', JSON.stringify(contacts));
-    });
-
-    newContact.appendChild(deleteBtn);
-    document.querySelector('#contact-list').appendChild(newContact);
+    let contact = {name, phone, email};
+    let contacts = JSON.parse(localStorage.getItem('contacts')) || [];
+    contacts.push(contact);
     document.querySelector('form').reset();
 
 
